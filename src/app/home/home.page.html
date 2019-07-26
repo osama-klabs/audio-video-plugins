@@ -1,14 +1,42 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Ionic Media Capture
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+
+  <div *ngIf="mediaFiles.length">
+    <video controls autoplay #myvideo>
+    </video>
+  
+    <ion-list>
+      <ion-list-header>
+        <ion-title>Click to play</ion-title>
+      </ion-list-header>
+      <ion-item *ngFor="let file of mediaFiles" tappable (click)="play(file)" text-wrap>
+        <ion-label>
+          <h3>{{ file.name }}</h3>
+          <p>Original size: {{ file.info.originalSize / 1000 / 1000 | number }} MB</p>
+          <p>Compression size: {{ file.info.size / 1000 / 1000 | number }} MB</p>
+          <p>Width: {{ file.info.width}}</p>
+          <p>Height: {{ file.info.height}}</p>
+          <p>Bitrate: {{ file.info.bitrate }} Bit/sec</p>
+          <p>Duration: {{ file.info.duration}}sec</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
   </div>
+
+  <ion-row>
+    <ion-col>
+      <ion-button expand="full" routerLink="/audio">Capture Audio</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button expand="full" (click)="captureVideo()">Capture Video</ion-button>
+    </ion-col>
+  </ion-row>
+
 </ion-content>

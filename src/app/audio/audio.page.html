@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Audio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <div> -->
+  <div text-center id="recordGrid" class="degrade" *ngIf="!audioFile">
+    <h1>Record Audio</h1>
+    <a class="myButton" style="width: 100px" text-center id="recBtn" *ngIf="recording()===false; else recordingComp;"
+      (click)="captureAudio()">
+      <ion-icon name="mic" style="font-size: 50px"></ion-icon>
+    </a>
+    <ng-template #recordingComp>
+      <a class="myButton" style="width: 100px" text-center id="stopRecBtn" (click)="stopRecord()">
+        <ion-icon name="mic-off" style="font-size: 50px"></ion-icon>
+      </a>
+    </ng-template>
+  </div>
+
+
+  <div text-center *ngIf="audioFile">
+    <h1>Listen Audio</h1>
+    <ion-button block [ngClass]="recording() || playing() ? 'play_disabled controlBtn' : 'play_enabled controlBtn'"
+      id="playBtn1" (click)="play()" round icon-only>
+      <ion-icon name="play"></ion-icon>
+    </ion-button>
+  </div>
+</ion-content>
